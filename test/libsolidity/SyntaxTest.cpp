@@ -237,9 +237,7 @@ int SyntaxTest::registerTests(
 			{
 				std::stringstream errorStream;
 				if (!SyntaxTest(fullpath.string()).run(errorStream, ""))
-				{
 					BOOST_ERROR("Test expectation mismatch.\n" + errorStream.str());
-				}
 			},
 			_path.stem().string(),
 			_path.string(),

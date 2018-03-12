@@ -27,9 +27,7 @@ namespace test
 class FormattedPrinter
 {
 public:
-	FormattedPrinter(bool _enabled) : m_enabled(_enabled)
-	{
-	}
+	FormattedPrinter(bool _enabled): m_enabled(_enabled) {}
 
 	static constexpr char const* RESET = "\033[0m";
 	static constexpr char const* RED  = "\033[1;31m";
@@ -39,30 +37,16 @@ public:
 	static constexpr char const* BOLD = "\033[1m";
 	static constexpr char const* INVERSE = "\033[7m";
 
-	void enableFormatting()
-	{
-		m_enabled = true;
-	}
-	void disableFormatting()
-	{
-		m_enabled = false;
-	}
+	void enableFormatting() { m_enabled = true; }
+	void disableFormatting() { m_enabled = false; }
 
 	class Scope
 	{
 	public:
-		Scope(std::ostream& _stream, bool const _enabled): m_stream(_stream), m_enabled(_enabled)
-		{
-		}
+		Scope(std::ostream& _stream, bool const _enabled): m_stream(_stream), m_enabled(_enabled) {}
 		~Scope()
 		{
-			try
-			{
-				if (m_enabled) m_stream << RESET;
-			}
-			catch(...)
-			{
-			}
+			try { if (m_enabled) m_stream << RESET; } catch(...) {}
 		}
 		template<typename T>
 		std::ostream& operator<<(T&& t)
@@ -71,7 +55,7 @@ public:
 		}
 	private:
 		std::ostream& m_stream;
-		bool const m_enabled;
+		bool const m_enabled = false;
 	};
 	Scope format(std::ostream& _stream, std::vector<const char*> const& _formatting) const
 	{
@@ -81,7 +65,7 @@ public:
 		return Scope(_stream, m_enabled);
 	}
 private:
-	bool m_enabled;
+	bool m_enabled = false;
 };
 
 
